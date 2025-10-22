@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astra Token - DeFi 生态系统</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>🌟 Astra Token</h1>
+            </div>
+            <nav class="nav">
+                <button id="connectWallet" class="btn btn-primary">连接钱包</button>
+                <div id="walletInfo" class="wallet-info" style="display: none;">
+                    <span id="walletAddress"></span>
+                    <span id="walletBalance"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主要内容区域 -->
+    <main class="main">
+        <div class="container">
+            <!-- 导航标签 -->
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="dashboard">仪表板</button>
+                <button class="tab-btn" data-tab="staking">质押管理</button>
+                <button class="tab-btn" data-tab="vesting">锁仓管理</button>
+                <button class="tab-btn" data-tab="liquidity">流动性管理</button>
+                <button class="tab-btn" data-tab="oracle">预言机监控</button>
+                <button id="refreshBtn" class="btn btn-secondary" style="margin-left: auto;">🔄 刷新</button>
+            </div>
+
+            <!-- 仪表板页面 -->
+            <div id="dashboard" class="tab-content active">
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <h3>💰 我的余额</h3>
+                        <div class="balance-info">
+                            <div class="balance-item">
+                                <span class="label">ASTRA 代币:</span>
+                                <span id="astraBalance" class="value">0.00</span>
+                            </div>
+                            <div class="balance-item">
+                                <span class="label">ETH 余额:</span>
+                                <span id="ethBalance" class="value">0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>📊 质押状态</h3>
+                        <div class="staking-overview">
+                            <div class="balance-item">
+                                <span class="label">已质押:</span>
+                                <span id="stakedAmount" class="value">0.00</span>
+                            </div>
+                            <div class="balance-item">
+                                <span class="label">待领取奖励:</span>
+                                <span id="pendingRewards" class="value">0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>🔒 锁仓状态</h3>
+                        <div class="vesting-overview">
+                            <div class="balance-item">
+                                <span class="label">可释放:</span>
+                                <span id="releasableAmount" class="value">0.00</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div id="vestingProgress" class="progress-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>🚀 快速操作</h3>
+                        <div class="quick-actions">
+                            <button class="btn btn-secondary" onclick="switchTab('staking')">质押代币</button>
+                            <button class="btn btn-secondary" onclick="switchTab('vesting')">释放锁仓</button>
+                            <button class="btn btn-secondary" onclick="switchTab('liquidity')">添加流动性</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 质押管理页面 -->
+            <div id="staking" class="tab-content">
+                <div class="staking-grid">
+                    <div class="card">
+                        <h3>💎 质押代币</h3>
+                        <div class="input-group">
+                            <label>质押数量 (ASTRA):</label>
+                            <input type="number" id="stakeAmount" placeholder="输入质押数量" min="0" step="0.01">
+                            <button id="stakeBtn" class="btn btn-primary">质押</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>🎁 领取奖励</h3>
+                        <div class="reward-info">
+                            <div class="balance-item">
+                                <span class="label">待领取奖励:</span>
+                                <span id="currentRewards" class="value">0.00 ASTRA</span>
+                            </div>
+                            <button id="claimBtn" class="btn btn-primary">领取奖励</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>💸 提取本金</h3>
+                        <div class="input-group">
+                            <label>提取数量 (ASTRA):</label>
+                            <input type="number" id="withdrawAmount" placeholder="输入提取数量" min="0" step="0.01">
+                            <button id="withdrawBtn" class="btn btn-primary">提取</button>
+                        </div>
+                        <div class="balance-item">
+                            <span class="label">当前质押:</span>
+                            <span id="currentStaked" class="value">0.00 ASTRA</span>
+                        </div>
+                        <div class="balance-item">
+                            <span class="label">总质押池:</span>
+                            <span id="totalPoolStaked" class="value">0.00 ASTRA</span>
+                        </div>
+                        <div class="balance-item">
+                            <span class="label">奖励速率:</span>
+                            <span id="rewardRate" class="value">0.00 ASTRA/秒</span>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div id="stakingProgress" class="progress-fill"></div>
+                            </div>
+                            <div class="progress-text">
+                                <span id="stakingPercentage">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 锁仓管理页面 -->
+            <div id="vesting" class="tab-content">
+                <div class="vesting-grid">
+                    <div class="card">
+                        <h3>🔐 锁仓计划</h3>
+                        <div id="vestingSchedules">
+                            <p class="help-text">正在加载锁仓信息...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 流动性管理页面 -->
+            <div id="liquidity" class="tab-content">
+                <div class="liquidity-grid">
+                    <div class="card">
+                        <h3>💧 添加流动性</h3>
+                        <div class="liquidity-form">
+                            <div class="input-group">
+                                <label>ASTRA 数量:</label>
+                                <input type="number" id="tokenAmount" placeholder="输入 ASTRA 数量" min="0" step="0.01">
+                            </div>
+                            <div class="input-group">
+                                <label>ETH 数量:</label>
+                                <input type="number" id="ethAmount" placeholder="输入 ETH 数量" min="0" step="0.001">
+                            </div>
+                            <button id="addLiquidityBtn" class="btn btn-primary">添加流动性</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>📈 流动性状态</h3>
+                        <div class="liquidity-status">
+                            <div class="balance-item">
+                                <span class="label">当前流动性:</span>
+                                <span id="currentLiquidity" class="value">0.00 LP</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>ℹ️ 操作说明</h3>
+                        <div class="help-section">
+                            <p>• 添加流动性需要同时提供 ASTRA 和 ETH</p>
+                            <p>• 设置滑点保护以防止价格波动</p>
+                            <p>• 确保钱包中有足够的代币和 ETH</p>
+                            <p>• 流动性将添加到 Uniswap V2 池</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 预言机监控页面 -->
+            <div id="oracle" class="tab-content">
+                <div class="oracle-grid">
+                    <div class="card">
+                        <h3>🔍 监控状态</h3>
+                        <div class="oracle-status">
+                            <div class="balance-item">
+                                <span class="label">上次检查时间:</span>
+                                <span id="lastCheck" class="value">未检查</span>
+                            </div>
+                            <div class="balance-item">
+                                <span class="label">检查周期:</span>
+                                <span id="checkPeriod" class="value">0 小时</span>
+                            </div>
+                            <div class="balance-item">
+                                <span class="label">销毁数量:</span>
+                                <span id="burnAmount" class="value">0.00 ASTRA</span>
+                            </div>
+                            <div class="balance-item">
+                                <span class="label">下次检查:</span>
+                                <span id="nextCheck" class="value">计算中...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>⚡ 手动操作</h3>
+                        <div class="oracle-actions">
+                            <button id="checkAndBurnBtn" class="btn btn-primary">手动检查并销毁</button>
+                            <p class="help-text">仅管理员可执行此操作</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>⚙️ 参数配置</h3>
+                        <div class="oracle-controls">
+                            <div class="input-group">
+                                <label>检查周期 (小时):</label>
+                                <input type="number" id="periodInput" placeholder="输入检查周期" min="1" step="1">
+                                <button id="setPeriodBtn" class="btn btn-secondary">设置周期</button>
+                            </div>
+                            <div class="input-group">
+                                <label>销毁数量 (ASTRA):</label>
+                                <input type="number" id="burnInput" placeholder="输入销毁数量" min="0" step="0.01">
+                                <button id="setBurnBtn" class="btn btn-secondary">设置销毁量</button>
+                            </div>
+                            <button id="triggerBtn" class="btn btn-primary">手动触发检查</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 状态提示 -->
+    <div id="statusMessage" class="status-message"></div>
+
+    <!-- 加载 Web3.js -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+    <!-- 主要 JavaScript 文件 -->
+    <script src="js/config.js"></script>
+    <script src="js/web3-utils.js"></script>
+    <script src="js/contracts.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

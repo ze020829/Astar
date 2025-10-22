@@ -1,0 +1,548 @@
+/* 重置样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 基础样式 */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+    color: #1F2937;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 头部样式 */
+.header {
+    background: #FFFFFF;
+    box-shadow: 0 2px 10px rgba(59, 130, 246, 0.1);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h1 {
+    color: #3B82F6;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.wallet-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 0.9rem;
+    color: #6B7280;
+}
+
+/* 按钮样式 */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-primary {
+    background: #3B82F6;
+    color: #FFFFFF;
+}
+
+.btn-primary:hover {
+    background: #2563EB;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.btn-secondary {
+    background: #EFF6FF;
+    color: #3B82F6;
+    border: 2px solid #3B82F6;
+}
+
+.btn-secondary:hover {
+    background: #3B82F6;
+    color: #FFFFFF;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* 主要内容区域 */
+.main {
+    padding: 2rem 0;
+}
+
+/* 标签导航 */
+.tabs {
+    display: flex;
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 0.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    overflow-x: auto;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border: none;
+    background: transparent;
+    color: #6B7280;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    min-width: 120px;
+}
+
+.tab-btn.active {
+    background: #3B82F6;
+    color: #FFFFFF;
+}
+
+.tab-btn:hover:not(.active) {
+    background: #EFF6FF;
+    color: #3B82F6;
+}
+
+/* 标签内容 */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* 卡片样式 */
+.card {
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #E5E7EB;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.1);
+    transform: translateY(-2px);
+}
+
+.card h3 {
+    color: #1F2937;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* 网格布局 */
+.dashboard-grid,
+.staking-grid,
+.vesting-grid,
+.liquidity-grid,
+.oracle-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* 余额信息 */
+.balance-info,
+.staking-overview,
+.vesting-overview {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.balance-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: #F9FAFB;
+    border-radius: 8px;
+    border-left: 4px solid #3B82F6;
+}
+
+.balance-item .label {
+    color: #6B7280;
+    font-weight: 500;
+}
+
+.balance-item .value {
+    color: #1F2937;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+/* 输入组 */
+.input-group {
+    margin-bottom: 1rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #374151;
+    font-weight: 600;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #E5E7EB;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    margin-bottom: 0.75rem;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #3B82F6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* 进度条 */
+.progress-container {
+    margin: 1rem 0;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 12px;
+    background: #E5E7EB;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3B82F6, #1D4ED8);
+    border-radius: 6px;
+    transition: width 0.3s ease;
+    width: 0%;
+}
+
+.progress-text {
+    text-align: center;
+    color: #6B7280;
+    font-weight: 600;
+}
+
+/* 快速操作 */
+.quick-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* 奖励信息 */
+.reward-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* 锁仓详情 */
+.vesting-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* 释放操作 */
+.release-section {
+    text-align: center;
+}
+
+.help-text {
+    color: #6B7280;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
+/* 流动性表单 */
+.liquidity-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* 流动性状态 */
+.liquidity-status {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* 帮助部分 */
+.help-section {
+    color: #6B7280;
+    line-height: 1.8;
+}
+
+.help-section p {
+    margin-bottom: 0.5rem;
+}
+
+/* 预言机状态 */
+.oracle-status {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* 预言机操作 */
+.oracle-actions {
+    text-align: center;
+}
+
+/* 配置表单 */
+.config-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* 状态消息 */
+.status-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-weight: 600;
+    z-index: 1000;
+    transform: translateX(400px);
+    transition: transform 0.3s ease;
+    max-width: 300px;
+}
+
+.status-message.show {
+    transform: translateX(0);
+}
+
+.status-message.success {
+    background: #10B981;
+}
+
+.status-message.error {
+    background: #EF4444;
+}
+
+.status-message.info {
+    background: #3B82F6;
+}
+
+.status-message.warning {
+    background: #F59E0B;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .header .container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .tabs {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .tab-btn {
+        min-width: auto;
+    }
+    
+    .dashboard-grid,
+    .staking-grid,
+    .vesting-grid,
+    .liquidity-grid,
+    .oracle-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .balance-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .quick-actions {
+        flex-direction: column;
+    }
+    
+    .status-message {
+        right: 15px;
+        left: 15px;
+        max-width: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo h1 {
+        font-size: 1.5rem;
+    }
+    
+    .btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+    
+    .card {
+        padding: 1rem;
+    }
+    
+    .card h3 {
+        font-size: 1.1rem;
+    }
+}
+
+/* 加载动画 */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #3B82F6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 连接状态指示器 */
+.connection-status {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.connection-status.connected {
+    background: #10B981;
+}
+
+.connection-status.disconnected {
+    background: #EF4444;
+}
+
+/* 工具提示 */
+.tooltip {
+    position: relative;
+    cursor: help;
+}
+
+.tooltip:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1F2937;
+    color: #FFFFFF;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+/* 表格样式 */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.table th,
+.table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #E5E7EB;
+}
+
+.table th {
+    background: #F9FAFB;
+    font-weight: 600;
+    color: #374151;
+}
+
+/* 徽章样式 */
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.badge.success {
+    background: #D1FAE5;
+    color: #065F46;
+}
+
+.badge.warning {
+    background: #FEF3C7;
+    color: #92400E;
+}
+
+.badge.error {
+    background: #FEE2E2;
+    color: #991B1B;
+}
+
+.badge.info {
+    background: #DBEAFE;
+    color: #1E40AF;
+}
